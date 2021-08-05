@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useMutation } from '@apollo/client'
 import { Form, Button, Alert } from 'react-bootstrap';
+
+import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
@@ -38,11 +39,10 @@ const SignupForm = () => {
     }
 
     try {
-      console.log("userFormData", userFormData)
       const { data } = await addUser({
         variables: { ...userFormData },
       });
-      console.log("data", data);
+      console.log(data);
       Auth.login(data.addUser.token)
      } catch (err) {
         console.error(err);
@@ -113,4 +113,5 @@ const SignupForm = () => {
     </>
   );
 };
+
 export default SignupForm;
