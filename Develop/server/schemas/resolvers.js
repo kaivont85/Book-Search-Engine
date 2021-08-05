@@ -6,7 +6,7 @@ const resolvers = {
   Query: {
     me: async (parent, args, context) => {
       if (context.user) {
-        const userData = User.findOne({ _id: context.user._id }).select('-_v -password');
+        const userData = await User.findOne({ _id: context.user._id }).select('-_v -password');
         return userData;
       }
       throw new AuthenticationError('You need to be logged in!');
@@ -14,11 +14,7 @@ const resolvers = {
   },
 
   Mutation: {
-    addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password});
-      const token = signToken(user);
-      return { token,user };
-    },
+    
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -36,12 +32,18 @@ const resolvers = {
       return { token, user };
     },
 
+    addUser: async (parent, args) => {
+      const user = await User.create(args);
+      const token = signToken(user);
+      return { token,user };
+    },
+
     saveBook: async (parent, { bookData }, context) => {
       // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
       if (context.user) {
         const updatedUser = await User.findByIdAndUpdate(
             { _id: context.user._id },
-            { $push: { savedBooks: bookData } },
+            { $addToSet: { savedBooks: bookData } },
             { new: true }
         );
 
@@ -49,11 +51,11 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    removeBook: async (parent, { bookId }, context) => {
+    removeBook: async (parent, args, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { savedBooks: { bookId} } },
+          { $pull: { savedBooks: { bookId: args.bookId} } },
           { new: true }
         );
 
