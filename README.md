@@ -1,6 +1,6 @@
 # Book-Search-Engine
 
-Visit the Deployed Site offerd by Heroku: 
+Visit the Deployed Site offerd by Heroku: https://pure-shore-17356.herokuapp.com/
 
 
 # Description
@@ -32,11 +32,11 @@ User can visit the website using the url above and create an account in the sign
  # Screenshots of deployed page working
 
 
-![screenshot](Develop/screenshots/landingpage.png)
-![screenshot](Develop/screenshots/signuplogin.png)
-![screenshot](Develop/screenshots/afterloggingin.png)
-![screenshot](Develop/screenshots/searchresults.png)
-![screenshot](Develop/screenshots/savedbooks.png)
+![screenshot](screenshots/landingpage.png)
+![screenshot](screenshots/signuplogin.png)
+![screenshot](screenshots/afterloggingin.png)
+![screenshot](screenshots/searchresults.png)
+![screenshot](screenshots/savedbooks.png)
 
 
 
